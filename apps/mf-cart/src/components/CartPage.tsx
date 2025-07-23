@@ -1,8 +1,9 @@
+import { Button, Colors } from "@aj.dev/easylib-ui";
 import axios from "axios";
+import { CircleDollarSign } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ProductCard } from "./ProductCard";
-
 export const CartPage = () => {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
@@ -118,7 +119,16 @@ export const CartPage = () => {
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <h2 className="text-indigo-500 text-xl font-semibold">Your Cart</h2>
+      <div className="flex items-center gap-4 px-5">
+        <h2 className="text-indigo-500 text-xl font-semibold">Your Cart</h2>
+        <Button
+          color={Colors.Warning}
+          className="rounded-full flex items-center gap-2"
+        >
+          <CircleDollarSign />
+          Checkout
+        </Button>
+      </div>
       <div className="flex items-center justify-center gap-4 flex-wrap">
         {products.map((product) => {
           const cartItem = cartItems.find(

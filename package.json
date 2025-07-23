@@ -24,7 +24,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@aj.dev/easylib-ui": "^0.1.5",
+    "@aj.dev/easylib-ui": "^0.1.7",
     "axios": "^1.10.0",
     "lucide-react": "^0.525.0"
   }

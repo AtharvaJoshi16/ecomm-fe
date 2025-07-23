@@ -12,7 +12,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@aj.dev/easylib-ui": "^0.1.5",
     "@repo/tailwind-config": "*",
     "@repo/ui": "*",
     "react": "^19.1.0",
