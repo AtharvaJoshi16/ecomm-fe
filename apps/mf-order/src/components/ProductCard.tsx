@@ -1,8 +1,15 @@
-import { Button, ButtonVariants, Colors, Sizes } from "@aj.dev/easylib-ui";
+import {
+  Button,
+  ButtonVariants,
+  Colors,
+  Modal,
+  Sizes,
+} from "@aj.dev/easylib-ui";
 import { Chip, ChipVariants } from "@aj.dev/easylib-ui/Chip";
 // import { Modal } from "@aj.dev/easylib-ui/Modal";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useState } from "react";
+import { ProductCheckoutItem } from "./ProductCheckoutItem";
 export const ProductCard = ({
   product,
   cartItem,
@@ -15,7 +22,7 @@ export const ProductCard = ({
   removeItem: (productId: string) => Promise<void>;
 }) => {
   const { name, category, mrp, discount, description, finalPrice } = product;
-  const navigate = useNavigate();
+  const [showOrderModal, setShowModal] = useState(false);
 
   const handleAddQuantity = async () => {
     updateCartHandler(cartItem, cartItem.quantity + 1);
@@ -78,15 +85,49 @@ export const ProductCard = ({
           </Button>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            className="flex items-center gap-2 w-full"
-            variant={ButtonVariants.Contained}
-            color={Colors.Warning}
-            onClick={() => navigate(`/orders/place-order/${product?.id}`)}
-          >
-            <ShoppingBag />
-            Buy now
-          </Button>
+          <Modal
+            open={showOrderModal}
+            slotProps={{
+              trigger: {
+                className: "w-full",
+              },
+            }}
+            trigger={
+              <Button
+                className="flex items-center gap-2 w-full"
+                variant={ButtonVariants.Contained}
+                color={Colors.Warning}
+                onClick={() => setShowModal(true)}
+              >
+                <ShoppingBag />
+                Buy now
+              </Button>
+            }
+            header={
+              <div className="text-lg font-semibold text-indigo-500">
+                Place order
+              </div>
+            }
+            footer={
+              <div className="flex items-center gap-2 justify-end">
+                <Button
+                  variant={ButtonVariants.Outlined}
+                  color={Colors.Secondary}
+                >
+                  Back
+                </Button>
+                <Button color={Colors.Secondary}>Place order</Button>
+              </div>
+            }
+            content={
+              <ProductCheckoutItem
+                product={product}
+                quantity={cartItem?.quantity}
+              />
+            }
+            onOpenChange={setShowModal}
+          />
+
           <Button
             className="flex items-center gap-2 w-full"
             variant={ButtonVariants.Outlined}

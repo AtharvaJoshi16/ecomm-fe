@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 const AuthApp = lazy(() => import("mf_auth/App"));
 const InventoryApp = lazy(() => import("mf_inventory/App"));
 const CartApp = lazy(() => import("mf_cart/App"));
+const OrdersApp = lazy(() => import("mf_order/App"));
 export const App = () => {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ export const App = () => {
             <Route path="/auth/*" element={<AuthApp />} />
             <Route path="/inventory/*" element={<InventoryApp />} />
             <Route path="/cart/*" element={<CartApp />} />
+            <Route path="/orders/*" element={<OrdersApp />} />
           </Routes>
         </Layout>
       </Suspense>

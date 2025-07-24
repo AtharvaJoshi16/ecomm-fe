@@ -58,6 +58,7 @@ module.exports = {
   devServer: {
     static: "./dist",
     port: 3002,
+    liveReload: true,
     open: true,
     hot: false,
     historyApiFallback: true,

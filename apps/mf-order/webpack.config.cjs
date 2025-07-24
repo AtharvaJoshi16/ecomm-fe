@@ -2,13 +2,21 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
+const dotenv = require("dotenv");
+const { DefinePlugin } = require("webpack");
+const envFile = dotenv.config().parsed || {};
+
+const envKeys = Object.keys(envFile).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(envFile[next]);
+  return prev;
+}, {});
+
 module.exports = {
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.[contenthash].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    publicPath: "http://localhost:3000/",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
@@ -28,12 +36,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "web",
-      remotes: {
-        mf_auth: "mf_auth@http://localhost:3001/remoteEntry.js",
-        mf_inventory: "mf_inventory@http://localhost:3002/remoteEntry.js",
-        mf_cart: "mf_cart@http://localhost:3003/remoteEntry.js",
-        mf_order: "mf_order@http://localhost:3004/remoteEntry.js",
+      name: "mf_order",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./App": "./src/App.tsx",
       },
       shared: {
         react: { singleton: true },
@@ -46,13 +52,14 @@ module.exports = {
       template: "./public/index.html",
     }),
     new ReactRefreshPlugin(),
+    new DefinePlugin(envKeys),
   ],
   devServer: {
     static: "./dist",
-    port: 3000,
+    port: 3004,
     open: true,
     liveReload: true,
-    watchFiles: [path.resolve(__dirname, "..")],
+    hot: false,
     historyApiFallback: true,
   },
   mode: "development",
