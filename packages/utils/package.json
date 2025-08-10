@@ -1,22 +1,22 @@
 {
-  "name": "@repo/tailwind-config",
+  "name": "@repo/utils",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "exports": {
-    "./tailwindConfig": "./tailwind.config.cjs",
-    "./postcssConfig": "./postcss.config.cjs",
-    "./styles": "./styles.tsx"
+    "./useUser": "./src/hooks/useUser.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17"
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "react-router": "^7.8.0",
+    "react-router-dom": "^7.8.0"
   }
 }

@@ -1,4 +1,5 @@
 import { Button, Colors, Textfield } from "@aj.dev/easylib-ui";
+import Alert from "@aj.dev/easylib-ui/Alert";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -75,11 +76,7 @@ export const PlaceOrderPage = () => {
   return (
     <div className="flex flex-col items-center mt-[50px]">
       <div className="flex flex-col gap-4 p-4 w-[700px] border-2 rounded-lg items-center">
-        {message && (
-          <div className="p-2 bg-green-400 border border-green-800 text-green-800 rounded-md">
-            {message}
-          </div>
-        )}
+        {message && <Alert color={Colors.Success} title={message} />}
         <h2 className="text-xl font-bold">
           Place Order for Product <span className="text-indigo-500">#{id}</span>
         </h2>
